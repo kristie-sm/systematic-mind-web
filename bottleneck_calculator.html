@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bottleneck Tax Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Jost', Arial, sans-serif;
+    background: #2C2520;
+    color: #FDFAF5;
+    padding: 0;
+    margin: 0;
+  }
+
+  .outer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 72px 40px;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #C08B74;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: 36px;
+    font-weight: 400;
+    color: #FDFAF5;
+    line-height: 1.2;
+    margin-bottom: 22px;
+  }
+  p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #C9BEB2;
+    margin-bottom: 16px;
+  }
+  p strong { color: #FDFAF5; font-weight: 400; }
+
+  .card {
+    background: #3a312b;
+    border: 1px solid #4d4039;
+    border-radius: 16px;
+    padding: 36px;
+  }
+  .big-number {
+    font-size: 52px;
+    color: #B8A07A;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .sublabel {
+    font-size: 12px;
+    color: #C9BEB2;
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid #4d4039;
+    margin-bottom: 20px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .field label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #C9BEB2;
+  }
+  .field input {
+    background: #2C2520;
+    border: 1px solid #4d4039;
+    border-radius: 8px;
+    color: #FDFAF5;
+    font-family: 'Jost', Arial, sans-serif;
+    font-size: 15px;
+    padding: 10px 14px;
+    width: 100%;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  .field input::-webkit-outer-spin-button,
+  .field input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .field input:focus { border-color: #B8A07A; }
+
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #3d342d;
+    font-size: 14px;
+  }
+  .result-row:last-of-type { border-bottom: none; }
+  .result-label { color: #C9BEB2; }
+  .result-val { font-size: 15px; color: #B8A07A; }
+
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 16px 0 0;
+    margin-top: 12px;
+    border-top: 1px solid #4d4039;
+  }
+  .total-label { font-size: 14px; color: #FDFAF5; }
+  .total-val { font-size: 22px; color: #B8A07A; }
+
+  @media (max-width: 860px) {
+    .outer {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 48px 24px;
+    }
+  }
+  @media (max-width: 480px) {
+    h2 { font-size: 28px; }
+    .big-number { font-size: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="outer">
+
+  <div class="copy">
+    <span class="eyebrow">The Bottleneck Tax</span>
+    <h2>What staying the bottleneck actually costs you</h2>
+    <p>Most founders think the problem is time. It's not. <strong>It's the financial cost of every hour you spend doing work your business should be doing without you.</strong></p>
+    <p>A founder billing at $150/hr who spends 15 hours a week answering questions, chasing approvals, and cleaning up delegation failures is leaving $117,000 in capacity on the table every year. Not someday. Right now.</p>
+    <p>I spent 16 years watching this show up in the numbers. That's what I built Systematic Mind to fix.</p>
+  </div>
+
+  <div class="card">
+    <div class="big-number" id="display-annual">$117,000</div>
+    <div class="sublabel">estimated annual capacity cost at your current rate</div>
+    <hr>
+
+    <div class="field">
+      <label for="rate">Your hourly rate ($)</label>
+      <input type="number" id="rate" value="150" min="0">
+    </div>
+    <div class="field">
+      <label for="hours">Hours lost per week to bottleneck tasks</label>
+      <input type="number" id="hours" value="15" min="0">
+    </div>
+
+    <hr>
+
+    <div class="result-row">
+      <span class="result-label">Weekly capacity lost</span>
+      <span class="result-val" id="r-weekly">$2,250</span>
+    </div>
+    <div class="result-row">
+      <span class="result-label">Monthly capacity lost</span>
+      <span class="result-val" id="r-monthly">$9,743</span>
+    </div>
+    <div class="total-row">
+      <span class="total-label">Your Bottleneck Tax</span>
+      <span class="total-val" id="r-annual">$117,000</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function calc() {
+    var rate    = parseFloat(document.getElementById('rate').value)  || 0;
+    var hours   = parseFloat(document.getElementById('hours').value) || 0;
+    var weekly  = Math.round(rate * hours);
+    var monthly = Math.round(weekly * 4.33);
+    var annual  = Math.round(weekly * 52);
+    var fmt = function(n) { return '$' + n.toLocaleString('en-US'); };
+    document.getElementById('r-weekly').textContent       = fmt(weekly);
+    document.getElementById('r-monthly').textContent      = fmt(monthly);
+    document.getElementById('r-annual').textContent       = fmt(annual);
+    document.getElementById('display-annual').textContent = fmt(annual);
+  }
+  document.getElementById('rate').addEventListener('input', calc);
+  document.getElementById('hours').addEventListener('input', calc);
+</script>
+
+</body>
+</html>
